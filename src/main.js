@@ -16,6 +16,7 @@ app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
 app.config.globalProperties.VueCookies = VueCookies
-// app.config.globalProperties.MaxWidth = 2000
-// app.config.globalProperties.MinWidth = 1250
+app.config.globalProperties.bodyMaxWidth = 2000
+app.config.globalProperties.bodyMinWidth = 1250
+app.config.globalProperties.bodyPadding = 150
 app.mount('#app')

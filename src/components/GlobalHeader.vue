@@ -4,7 +4,10 @@
       <router-link class="iconfont icon-bilibili" to="/">首页</router-link>
     </div>
     <div class="search">
-      <el-input v-model="search_input" placeholder="Type something" />
+      <div class="search-pannel">
+        <input />
+        <button class="iconfont icon-sousuo" />
+      </div>
     </div>
     <div class="user-bar">
       <div class="user-bar-item">
@@ -59,6 +62,52 @@ defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  margin: 0px auto;
+  width: 90%;
+  .search-pannel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 0px 10px;
+    border: 1px solid #f5f5f5;
+    overflow: hidden;
+    input {
+      border: none;
+      background-color: #f5f5f5;
+      width: 100%;
+      height: 30px;
+      border-radius: 8px;
+      padding: 0px 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .iconfont {
+      margin-left: 8px;
+      border: none;
+      background-color: #f5f5f5;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      padding: 0px 10px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: center;
+      font-weight: normal;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background-color: #d3cfcf;
+      }
+    }
+  }
 }
 .menu {
   display: flex;

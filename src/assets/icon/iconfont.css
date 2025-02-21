@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4830818 */
-  src: url('iconfont.woff2?t=1739894943829') format('woff2'),
-       url('iconfont.woff?t=1739894943829') format('woff'),
-       url('iconfont.ttf?t=1739894943829') format('truetype'),
-       url('iconfont.svg?t=1739894943829#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1740122559151') format('woff2'),
+       url('iconfont.woff?t=1740122559151') format('woff'),
+       url('iconfont.ttf?t=1740122559151') format('truetype'),
+       url('iconfont.svg?t=1740122559151#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sousuo:before {
+  content: "\e780";
 }
 
 .icon-xiaoxi1:before {

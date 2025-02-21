@@ -6,13 +6,17 @@
       'min-width': MinWidth + 'px',
     }"
   >
-    <div class="scroll-header"><GlobalHeader /></div>
-    <div class="fix-header" v-if="showFixHeader"><GlobalHeader theme="dark"></GlobalHeader></div>
+    <div class="scroll-header" style="z-index: 1001"><GlobalHeader /></div>
+    <div class="fix-header" v-if="showFixHeader" style="z-index: 1001">
+      <GlobalHeader theme="dark"></GlobalHeader>
+    </div>
+    <div class="video-page"><VideoPage></VideoPage></div>
     <div style="height: 1000px"></div>
   </div>
 </template>
 
 <script setup>
+import VideoPage from '@/components/VideoPage.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import { ref, onMounted } from 'vue'
 // import { getCurrentInstance } from 'vue'
