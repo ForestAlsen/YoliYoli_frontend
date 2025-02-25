@@ -4,17 +4,22 @@ import './assets/icon/iconfont.js'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import VueQrcode from 'vue-qrcode'
 
 import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import VueCookies from 'vue-cookies'
+import DialogComponent from './components/DialogComponent.vue'
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(ElementPlus)
+app.component('vue-qrcode', VueQrcode)
+app.component('DialogComponent', DialogComponent)
+
 app.config.globalProperties.VueCookies = VueCookies
 app.config.globalProperties.bodyMaxWidth = 2000
 app.config.globalProperties.bodyMinWidth = 1250

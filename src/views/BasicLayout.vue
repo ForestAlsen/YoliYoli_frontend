@@ -10,6 +10,7 @@
     <div class="fix-header" v-if="showFixHeader" style="z-index: 1001">
       <GlobalHeader theme="dark"></GlobalHeader>
     </div>
+    <LoginPage></LoginPage>
     <div class="video-page"><VideoPage></VideoPage></div>
     <div style="height: 1000px"></div>
   </div>
@@ -18,6 +19,7 @@
 <script setup>
 import VideoPage from '@/components/VideoPage.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import LoginPage from '@/views/LoginPage.vue'
 import { ref, onMounted } from 'vue'
 // import { getCurrentInstance } from 'vue'
 // const { proxy } = getCurrentInstance()

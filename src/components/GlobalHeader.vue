@@ -5,13 +5,19 @@
     </div>
     <div class="search">
       <div class="search-pannel">
-        <input />
-        <button class="iconfont icon-sousuo" />
+        <input v-model="search_input" placeholder="请输入要搜索的内容" />
+        <i v-if="search_input" class="iconfont icon-guanbi" @click="search_input = ''" />
+        <button class="iconfont icon-sousuo" @click="onSearch" />
       </div>
     </div>
     <div class="user-bar">
       <div class="user-bar-item">
-        <div class="avatar"><el-avatar :size="37" :src="circleUrl" /></div>
+        <div class="avatar">
+          <!-- <el-button type="primary" :icon="LoginIcon" @click="openLoginWindow" /> -->
+          <el-button type="primary" @click="openLoginWindow" color="#fb7299"
+            ><span style="color: #fff">登陆</span></el-button
+          >
+        </div>
       </div>
       <div class="user-bar-item">
         <div class="iconfont icon-xiaoxi1"></div>
@@ -36,11 +42,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import emitter from '@/eventBus'
+import { ref, onMounted, h } from 'vue'
 import { getCurrentInstance } from 'vue'
-import { useRouter } from 'vue-router'
 const { proxy } = getCurrentInstance()
 const search_input = ref('')
+/**
+ * @description:发送打开登陆窗口事件
+ */
+const openLoginWindow = () => {
+  emitter.emit('openDialog', () => {
+    return true
+  })
+}
+const onSearch = () => {
+  console.log(search_input.value)
+}
+const LoginIcon = h('i', { class: 'iconfont icon-bilibili-' })
 defineProps({
   theme: {
     type: String,
