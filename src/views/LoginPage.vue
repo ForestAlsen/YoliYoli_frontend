@@ -59,6 +59,10 @@ import { ref } from 'vue'
 emitter.on('openDialog', (callback) => {
   dialogConfig.value.show = callback
 })
+emitter.on('closeDialog', (callback) => {
+  dialogConfig.value.show = callback
+})
+
 const qrCodeValue = ref('https://example.com')
 const qrCodeSize = ref(200)
 const pageStatus = ref(true)

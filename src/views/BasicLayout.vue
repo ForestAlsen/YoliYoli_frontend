@@ -11,13 +11,13 @@
       <GlobalHeader theme="dark"></GlobalHeader>
     </div>
     <LoginPage></LoginPage>
-    <div class="video-page"><VideoPage></VideoPage></div>
+    <div class="video-page"><RecommendVideoPage></RecommendVideoPage></div>
     <div style="height: 1000px"></div>
   </div>
 </template>
 
 <script setup>
-import VideoPage from '@/components/VideoPage.vue'
+import RecommendVideoPage from '@/components/RecommendVideoPage.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import { ref, onMounted } from 'vue'

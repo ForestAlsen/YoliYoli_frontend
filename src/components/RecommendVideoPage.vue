@@ -17,13 +17,18 @@
         ref="carousel"
       >
         <el-carousel-item v-for="item in carouselList" :key="item">
+          <div class="roll-image">
+            <router-link to="/video/`${item.id}`" target="_blank">
+              <img :src="item.videoCover" alt="" />
+            </router-link>
+          </div>
           <h3 text="2xl" justify="center">{{ item.id }}</h3>
         </el-carousel-item>
       </el-carousel>
       <div class="carousel-bottom">
         <div class="carousel-video-info">
           <router-link to="" target="_blank" class="video-name">{{
-            carouselList[carouselID].title
+            carouselList[carouselID].videoName
           }}</router-link>
           <div class="switch-button">
             <span class="iconfont icon-zuo" @click="preView"></span>
@@ -42,7 +47,9 @@
       </div>
     </div>
     <div class="recommend-video-list">
-      <div v-for="item in recommendVideoList" :key="item">{{ item.title }}</div>
+      <div v-for="item in recommendVideoList" :key="item">
+        <VideoCard :data="item"></VideoCard>
+      </div>
     </div>
   </div>
   <!--视频列表区域-->
@@ -52,6 +59,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getCurrentInstance } from 'vue'
+import VideoCard from './VideoCard.vue'
+const { proxy } = getCurrentInstance()
 const carousel = ref() //走马灯实例
 const carouselWidth = ref()
 const carouselID = ref(0) //记录第几张走马灯
@@ -60,7 +69,7 @@ const carouselMaxCount = ref(6) //走马灯最大数量
  * 设置走马灯宽度
  */
 const setCarouselWidth = () => {
-  let width = (document.body.clientWidth - getCurrentInstance().proxy.bodyPadding * 2) * 0.4218
+  let width = (document.body.clientWidth - proxy.bodyPadding * 2) * 0.4218
   if (width < 400) {
     width = 400
   }
@@ -73,64 +82,64 @@ const recommendVideoList = ref([]) //右侧推荐视频列表
  */
 const recommendList = ref([
   {
-    url: '',
+    videoCover: '',
     id: 1,
-    title: 'title',
+    videoName: 'videoName',
   },
   {
-    url: '',
+    videoCover: '',
     id: 2,
-    title: 'title2',
+    videoName: 'videoName2',
   },
   {
-    url: '',
+    videoCover: '',
     id: 3,
-    title: 'title3',
+    videoName: 'videoName3',
   },
   {
-    url: '',
+    videoCover: '',
     id: 4,
-    title: 'title4',
+    videoName: 'videoName4',
   },
   {
-    url: '',
+    videoCover: '',
     id: 5,
-    title: 'title5',
+    videoName: 'videoName5',
   },
   {
-    url: '',
+    videoCover: '',
     id: 6,
-    title: 'title6',
+    videoName: 'videoName6',
   },
   {
-    url: '',
+    videoCover: '',
     id: 7,
-    title: 'title7',
+    videoName: 'videoName7',
   },
   {
-    url: '',
+    videoCover: '',
     id: 8,
-    title: 'title8',
+    videoName: 'videoName8',
   },
   {
-    url: '',
+    videoCover: '',
     id: 9,
-    title: 'title9',
+    videoName: 'videoName9',
   },
   {
-    url: '',
+    videoCover: 'src/assets/image/anon.png',
     id: 10,
-    title: 'title10',
+    videoName: 'videoName10',
   },
   {
-    url: '',
+    videoCover: '',
     id: 11,
-    title: 'title11',
+    videoName: 'videoName11',
   },
   {
-    url: '',
+    videoCover: '',
     id: 12,
-    title: 'title12',
+    videoName: 'videoName12',
   },
 ])
 /**
