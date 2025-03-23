@@ -15,6 +15,7 @@ import DialogComponent from './components/DialogComponent.vue'
 import CoverComponent from './components/CoverComponent.vue'
 import AvatarComponent from './components/AvatarComponent.vue'
 import VideoCard from './components/VideoCard.vue'
+import VideoList from './components/VideoList.vue'
 const app = createApp(App)
 
 app.use(createPinia())
@@ -25,6 +26,7 @@ app.component('DialogComponent', DialogComponent)
 app.component('CoverComponent', CoverComponent)
 app.component('AvataComponent', AvatarComponent)
 app.component('VideoCard', VideoCard)
+app.component('VideoList', VideoList)
 
 /**
  * @description: 全局配置

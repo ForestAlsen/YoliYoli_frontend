@@ -9,3 +9,10 @@ export const getVideoCover = async (videoID) => {
     },
   })
 }
+
+export const getVideo = async () => {
+  return await myAxios.request({
+    url: '',
+    method: 'get',
+  })
+}

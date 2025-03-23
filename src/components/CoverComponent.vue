@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref, defineProps, computed, getCurrentInstance, onMounted } from 'vue'
-import { getVideoCover } from '@/api/video'
+
 const { proxy } = getCurrentInstance()
 const props = defineProps({
   src: {
@@ -47,6 +47,7 @@ const props = defineProps({
   },
   defaultImg: {
     type: String,
+    default: '',
   },
   lazy: {
     type: Boolean,
@@ -61,7 +62,7 @@ const props = defineProps({
   },
   preview: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   /**
    * @description: 图片缩放比例
@@ -89,8 +90,7 @@ const fileSource = computed(() => {
     }
     return
   } else if (typeof props.src === 'string') {
-    var name = getVideoCover()
-    return `name${props.src}`
+    return `${props.src}`
   }
   return {}
 })

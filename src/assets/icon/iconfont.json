@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2154210",
+      "name": "弹幕数_32",
+      "font_class": "danmushu",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "10963753",
+      "name": "播放次数",
+      "font_class": "bofangcishu",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "43245462",
+      "name": "up主",
+      "font_class": "upzhu",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
       "icon_id": "7404381",
       "name": "搜索",
       "font_class": "sousuo",

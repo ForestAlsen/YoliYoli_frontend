@@ -18,17 +18,14 @@
       >
         <el-carousel-item v-for="item in carouselList" :key="item">
           <div class="roll-image">
-            <router-link to="/video/`${item.id}`" target="_blank">
-              <img :src="item.videoCover" alt="" />
-            </router-link>
+            <img :src="`${item.videoCover}`" />
           </div>
-          <h3 text="2xl" justify="center">{{ item.id }}</h3>
         </el-carousel-item>
       </el-carousel>
       <div class="carousel-bottom">
         <div class="carousel-video-info">
           <router-link to="" target="_blank" class="video-name">{{
-            carouselList[carouselID].videoName
+            carouselList[carouselID].videoTitle
           }}</router-link>
           <div class="switch-button">
             <span class="iconfont icon-zuo" @click="preView"></span>
@@ -46,23 +43,43 @@
         </div>
       </div>
     </div>
-    <div class="recommend-video-list">
+    <div
+      class="recommend-video-list"
+      :style="{
+        marginRight: getCurrentInstance().proxy.bodyPadding + 'px',
+        height: carouselWidth * 0.6 + 'px',
+        width: carouselWidth - 20 + 'px',
+      }"
+    >
       <div v-for="item in recommendVideoList" :key="item">
-        <VideoCard :data="item"></VideoCard>
+        <VideoCard :data="item" :layout-type="1"></VideoCard>
       </div>
     </div>
   </div>
   <!--视频列表区域-->
-  <div class="video-block"></div>
+  <div
+    class="video-list"
+    :style="{
+      marginLeft: proxy.bodyPadding + 'px',
+      marginRight: proxy.bodyPadding + 'px',
+      marginTop: '100px',
+    }"
+  >
+    <VideoList></VideoList>
+  </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { getCurrentInstance } from 'vue'
-import VideoCard from './VideoCard.vue'
+import VideoCard from '../components/VideoCard.vue'
+import VideoList from '../components/VideoList.vue'
+import emitter from '@/eventBus'
+
 const { proxy } = getCurrentInstance()
 const carousel = ref() //走马灯实例
 const carouselWidth = ref()
+
 const carouselID = ref(0) //记录第几张走马灯
 const carouselMaxCount = ref(6) //走马灯最大数量
 /**
@@ -70,11 +87,12 @@ const carouselMaxCount = ref(6) //走马灯最大数量
  */
 const setCarouselWidth = () => {
   let width = (document.body.clientWidth - proxy.bodyPadding * 2) * 0.4218
-  if (width < 400) {
-    width = 400
+  if (width < 500) {
+    width = 500
   }
   carouselWidth.value = width
 }
+
 const carouselList = ref([]) //走马灯展示的视频列表
 const recommendVideoList = ref([]) //右侧推荐视频列表
 /**
@@ -82,64 +100,70 @@ const recommendVideoList = ref([]) //右侧推荐视频列表
  */
 const recommendList = ref([
   {
-    videoCover: '',
-    id: 1,
-    videoName: 'videoName',
-  },
-  {
-    videoCover: '',
-    id: 2,
-    videoName: 'videoName2',
-  },
-  {
-    videoCover: '',
-    id: 3,
-    videoName: 'videoName3',
-  },
-  {
-    videoCover: '',
-    id: 4,
-    videoName: 'videoName4',
-  },
-  {
-    videoCover: '',
-    id: 5,
-    videoName: 'videoName5',
-  },
-  {
-    videoCover: '',
-    id: 6,
-    videoName: 'videoName6',
-  },
-  {
-    videoCover: '',
-    id: 7,
-    videoName: 'videoName7',
-  },
-  {
-    videoCover: '',
-    id: 8,
-    videoName: 'videoName8',
-  },
-  {
-    videoCover: '',
-    id: 9,
-    videoName: 'videoName9',
+    videoCover: 'src/assets/image/anon.png',
+    UID: 1,
+    videoTitle: 'videoTitle',
+    userName: 'a',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 10,
-    videoName: 'videoName10',
+    id: 2,
+    videoTitle: 'videoTitle2',
+    userName: 'b',
   },
   {
-    videoCover: '',
+    videoCover: 'src/assets/image/anon.png',
+    id: 3,
+    videoTitle: 'videoTitle3',
+    userName: 'c',
+  },
+  {
+    videoCover: 'src/assets/image/anon.png',
+    id: 4,
+    videoTitle: 'videoTitle4',
+    userName: 'd',
+  },
+  {
+    videoCover: 'src/assets/image/anon.png',
+    id: 5,
+    videoTitle: 'videoTitle5',
+  },
+  {
+    videoCover: 'src/assets/image/anon.png',
+    id: 6,
+    videoTitle: 'videoTitle6',
+  },
+  {
+    videoCover: 'src/assets/image/yamada.png',
+    id: 7,
+    videoTitle: 'videoTitle7',
+  },
+  {
+    videoCover: 'src/assets/image/ana.png',
+    id: 8,
+    videoTitle: 'videoTitle8',
+  },
+  {
+    videoCover: 'src/assets/image/anon.png',
+    id: 9,
+    videoTitle: 'videoTitle9',
+  },
+  {
+    videoCover: 'src/assets/image/anon.png',
+    UID: 10,
+    videoTitle: 'videoTitle10',
+    releaseTime: '2025/3/8',
+    userName: '千早爱音',
+  },
+  {
+    videoCover: 'src/assets/image/animate.png',
     id: 11,
-    videoName: 'videoName11',
+    videoTitle: 'videoTitle11',
   },
   {
-    videoCover: '',
+    videoCover: 'src/assets/image/anon.png',
     id: 12,
-    videoName: 'videoName12',
+    videoTitle: 'videoTitle12',
   },
 ])
 /**
@@ -176,27 +200,35 @@ const nextView = () => {
  */
 onMounted(() => {
   setCarouselWidth()
-  window.addEventListener('resize', setCarouselWidth)
+
+  emitter.on('windowResize', () => {
+    setCarouselWidth()
+  })
+})
+onUnmounted(() => {
+  emitter.off('windowResize')
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .recommend-block {
   display: flex;
-  margin-top: 20px;
+  margin-top: 25px;
+
   .carousel-block {
     border-radius: 5px;
     overflow: hidden;
     position: relative;
-    .el-carousel {
-      width: 100%;
+    .roll-image {
+      position: relative;
+      background: #e9e9e9;
+      text-align: center;
       height: 100%;
-      .el-carousel__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #99a9bf;
-        color: #475669;
-        font-size: 30px;
+      a {
+        display: block;
+      }
+      img {
+        max-width: 100%;
+        height: 100%;
       }
     }
     .carousel-bottom {
@@ -258,21 +290,11 @@ onMounted(() => {
     }
   }
   .recommend-video-list {
-    margin-left: 10px;
+    margin-left: 20px;
     flex: 1;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
-// .recommend-block {
-//   position: relative;
-//   display: flex;
-
-//   justify-content: center;
-//   width: 100%;
-// }
-// .recommend-video-list {
-// }
 </style>

@@ -32,7 +32,7 @@
         <div>历史</div>
       </div>
       <div class="btn-upload">
-        <el-button type="primary" size="" @click=""
+        <el-button type="primary" size=""
           ><span class="iconfont icon-share"></span><span>投稿</span></el-button
         >
       </div>
@@ -58,7 +58,7 @@ const openLoginWindow = () => {
 const onSearch = () => {
   console.log(search_input.value)
 }
-const LoginIcon = h('i', { class: 'iconfont icon-bilibili-' })
+//const LoginIcon = h('i', { class: 'iconfont icon-bilibili-' })
 defineProps({
   theme: {
     type: String,
@@ -123,6 +123,7 @@ defineProps({
       justify-content: center;
       &:hover {
         background-color: #d3cfcf;
+        transition: background-color 0.3s ease;
       }
     }
   }
@@ -142,18 +143,19 @@ defineProps({
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-.user-bar-item {
-  padding: 5px 15px;
-  // margin: 0 10px;
-  text-align: center;
-  cursor: pointer;
-  .iconfont {
-    font-size: 20px;
+  .user-bar-item {
+    padding: 5px 15px;
+    // margin: 0 10px;
     text-align: center;
-    font-weight: normal;
+    cursor: pointer;
+    .iconfont {
+      font-size: 20px;
+      text-align: center;
+      font-weight: normal;
+    }
   }
 }
+
 .btn-upload {
   margin-left: 10px;
   .el-button {
@@ -168,6 +170,11 @@ defineProps({
     &::before {
       margin-right: 5px;
     }
+  }
+  :hover {
+    background-color: #e999af;
+    border-color: #e999af;
+    transition: all 0.3s ease;
   }
 }
 .base-header-bar-light {

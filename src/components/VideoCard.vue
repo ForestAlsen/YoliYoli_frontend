@@ -1,19 +1,37 @@
 <template>
   <div
-    :class="['video-item', layout == 2 ? 'video-item2' : '']"
+    :class="['video-item', layoutType == 2 ? 'video-item2' : '']"
     :style="{ 'margin-top': marginTop + 'px' }"
   >
     <router-link to="`/video/${data.videoID}`" target="_blank">
       <div class="cover">
-        <CoverComponent :src="data.videoCover"></CoverComponent>
-        <div class="shade" v-show="">
-          <div class="played-count"></div>
+        <CoverComponent :src="data.videoCover" preview="false"></CoverComponent>
+
+        <div class="shade">
+          <div class="played-count" v-show="layoutType === 1">
+            <div class="iconfont icon-bofangcishu">{{ data.playedCount }}</div>
+            <div class="iconfont icon-danmushu">{{ data.danmu }}</div>
+          </div>
         </div>
       </div>
     </router-link>
-    {{ data.videoName }}
+    <div class="video-info">
+      <router-link
+        class="video-title"
+        target="_blank"
+        to="`/video/${data.videoID}`"
+        v-html="data.videoTitle"
+      ></router-link>
+      <router-link class="user-name" to="`/user/${data.UID}`" target="_blank"
+        ><span class="iconfont icon-upzhu" :style="{ float: 'left' }">{{ data.userName }} . </span>
+        <span :style="{ float: 'right' }">{{ data.releaseTime }}</span>
+      </router-link>
+      <div class="played-count" v-show="layoutType === 2">
+        <div class="iconfont icon-bofangcishu">{{ data.playedCount }}</div>
+        <div class="iconfont icon-danmushu">{{ data.danmu }}</div>
+      </div>
+    </div>
   </div>
-  <div>{{ data.userName }}</div>
 </template>
 
 <script setup>
@@ -50,46 +68,48 @@ const props = defineProps({
       overflow: hidden;
       border-radius: 5px;
     }
-  }
-  .shade {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    box-sizing: border-box;
-    padding: 8px 8px 6px;
-    width: 100%;
-    height: 38px;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-    color: #fff;
-    opacity: 1;
-    display: -webkit-flex;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .played-count {
+    .shade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      box-sizing: border-box;
+      padding: 8px 8px 6px;
+      width: 100%;
+      height: 38px;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+      color: #fff;
+      opacity: 1;
+      display: -webkit-flex;
       display: flex;
-      iconfont {
-        font-size: 13px;
-        &::before {
-          font-size: 16px;
-          margin-right: 2px;
+      align-items: center;
+      justify-content: space-between;
+      .played-count {
+        display: flex;
+        font-style: oblique;
+        iconfont {
+          font-size: 13px;
+          &::before {
+            font-size: 16px;
+            margin-right: 2px;
+          }
         }
-      }
-      .icon-danmu {
-        margin-left: 15px;
+        .icon-danmushu {
+          margin-left: 15px;
+        }
       }
     }
   }
+
   .video-info {
     cursor: pointer;
-    .title {
+    .video-title {
       height: 40px;
       color: var(--text-color);
       font-size: 14px;
-      margin-top: 10xp;
+      margin-top: 10px;
       display: -webkit-box; //兼容旧浏览器
       overflow: hidden;
       text-decoration: none;
@@ -99,9 +119,10 @@ const props = defineProps({
       word-break: break-word !important;
       word-break: break-all;
       line-break: anywhere;
-      -webkit-line-clamp: 2;
+      line-clamp: 2;
       &:hover {
-        color: var(--bule);
+        color: blueviolet;
+        transition: color 0.3s linear;
       }
       :deep(.highlight) {
         color: red !important;
@@ -114,7 +135,8 @@ const props = defineProps({
       cursor: pointer;
       text-decoration: none;
       &:hover {
-        color: var(--bule);
+        color: blueviolet;
+        transition: color 0.3s linear;
       }
       .iconfont {
         &::before {
@@ -139,7 +161,7 @@ const props = defineProps({
   .video-info {
     flex: 1;
     margin-left: 15px;
-    .title {
+    .videoTitle {
       margin-top: 0px;
     }
     .played-count {

@@ -11,16 +11,20 @@
       <GlobalHeader theme="dark"></GlobalHeader>
     </div>
     <LoginPage></LoginPage>
-    <div class="video-page"><RecommendVideoPage></RecommendVideoPage></div>
+    <div class="video-page">
+      <div class="video-page"><VideoLayoutPage></VideoLayoutPage></div>
+    </div>
     <div style="height: 1000px"></div>
   </div>
 </template>
 
 <script setup>
-import RecommendVideoPage from '@/components/RecommendVideoPage.vue'
+import VideoLayoutPage from '@/views/MainVideoLayout.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import LoginPage from '@/views/LoginPage.vue'
-import { ref, onMounted } from 'vue'
+
+import { ref, onMounted, onUnmounted } from 'vue'
+import emitter from '@/eventBus'
 // import { getCurrentInstance } from 'vue'
 // const { proxy } = getCurrentInstance()
 const MaxWidth = ref(2000)
@@ -28,9 +32,7 @@ const MinWidth = ref(1250)
 /**
  * @description: 监听滚动事件
  */
-onMounted(() => {
-  window.addEventListener('scroll', scrollEvent)
-})
+
 const showFixHeader = ref(false)
 /**
  * @description: 滚动事件
@@ -44,6 +46,17 @@ const scrollEvent = () => {
     showFixHeader.value = false
   }
 }
+const resizeEvent = () => {
+  emitter.emit('windowResize')
+}
+onMounted(() => {
+  window.addEventListener('scroll', scrollEvent)
+  window.addEventListener('windowResize', resizeEvent)
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrollEvent)
+  window.removeEventListener('windowResize', resizeEvent)
+})
 </script>
 <style>
 body {
