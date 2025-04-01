@@ -103,7 +103,7 @@ const imageList = computed(() => {
 })
 const showPreview = ref(false)
 const showPreviewHandle = () => {
-  if (!props.preview) {
+  if (props.preview) {
     return
   }
   showPreview.value = true

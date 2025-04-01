@@ -34,6 +34,6 @@ app.component('VideoList', VideoList)
 app.config.globalProperties.VueCookies = VueCookies
 app.config.globalProperties.bodyMaxWidth = 2000
 app.config.globalProperties.bodyMinWidth = 1250
-app.config.globalProperties.bodyPadding = 150
+app.config.globalProperties.bodyPadding = 200
 app.config.globalProperties.imgSuffixName = '_suffixName.jpg'
 app.mount('#app')

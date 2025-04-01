@@ -5,7 +5,7 @@
       class="carousel-block"
       :style="{
         height: carouselWidth * 0.6 + 'px',
-        width: carouselWidth - 20 + 'px',
+        width: carouselWidth + 'px',
         marginLeft: getCurrentInstance().proxy.bodyPadding + 'px',
       }"
     >
@@ -24,9 +24,12 @@
       </el-carousel>
       <div class="carousel-bottom">
         <div class="carousel-video-info">
-          <router-link to="" target="_blank" class="video-name">{{
-            carouselList[carouselID].videoTitle
-          }}</router-link>
+          <router-link
+            :to="`/video/${carouselList[carouselID].id}`"
+            target="_blank"
+            class="video-name"
+            >{{ carouselList[carouselID].videoTitle }}</router-link
+          >
           <div class="switch-button">
             <span class="iconfont icon-zuo" @click="preView"></span>
             <span class="iconfont icon-you" @click="nextView"></span>
@@ -48,7 +51,8 @@
       :style="{
         marginRight: getCurrentInstance().proxy.bodyPadding + 'px',
         height: carouselWidth * 0.6 + 'px',
-        width: carouselWidth - 20 + 'px',
+        // width: carouselWidth * 1.5 + 'px',
+        minWidth: 550 + 'px',
       }"
     >
       <div v-for="item in recommendVideoList" :key="item">
@@ -60,6 +64,7 @@
   <div
     class="video-list"
     :style="{
+      position: 'relative',
       marginLeft: proxy.bodyPadding + 'px',
       marginRight: proxy.bodyPadding + 'px',
       marginTop: '100px',
@@ -86,9 +91,9 @@ const carouselMaxCount = ref(6) //走马灯最大数量
  * 设置走马灯宽度
  */
 const setCarouselWidth = () => {
-  let width = (document.body.clientWidth - proxy.bodyPadding * 2) * 0.4218
-  if (width < 500) {
-    width = 500
+  let width = (document.documentElement.clientWidth - proxy.bodyPadding * 2) * 0.4218
+  if (width < 400) {
+    width = 400
   }
   carouselWidth.value = width
 }
@@ -200,7 +205,6 @@ const nextView = () => {
  */
 onMounted(() => {
   setCarouselWidth()
-
   emitter.on('windowResize', () => {
     setCarouselWidth()
   })
@@ -211,10 +215,12 @@ onUnmounted(() => {
 </script>
 <style lang="scss" scoped>
 .recommend-block {
-  display: flex;
-  margin-top: 25px;
+  display: inline-flex;
 
+  margin-top: 25px;
+  max-height: 340px;
   .carousel-block {
+    grid-column: 1 / span 2;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
@@ -236,7 +242,8 @@ onUnmounted(() => {
       bottom: 0px;
       width: 100%;
       height: 65px;
-      background: rgba(0, 0, 0, 0.6);
+
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
       padding: 10px;
       .carousel-video-info {
         display: flex;
@@ -266,6 +273,10 @@ onUnmounted(() => {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             color: #fff;
+            :hover {
+              background-color: rgba(225, 215, 215, 0.272);
+              transition: background-color 0.3s ease;
+            }
           }
         }
       }
@@ -293,6 +304,7 @@ onUnmounted(() => {
     margin-left: 20px;
     flex: 1;
     display: grid;
+
     grid-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
   }

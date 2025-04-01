@@ -42,10 +42,20 @@ const loading = ref(false)
 /**
  * 模拟后端返回的视频数据
  */
+const loadDataList = () => {
+  console.log(
+    '加载了',
+    dataSource.value.pageNumber,
+    '条数据,共有',
+    dataSource.value.totalPage,
+    '条数据',
+  )
+}
 const response = ref({
   code: 200,
   data: {
     pageNumber: 1,
+    totalPage: 10,
     list: [
       {
         videoCover: 'src/assets/image/anon.png',
@@ -100,7 +110,7 @@ const response = ref({
         videoCover: 'src/assets/image/anon.png',
         UID: 10,
         videoTitle: 'videoTitle10',
-        releaseTime: '2025/3/8',
+        releaseTime: '3-8',
         userName: '千早爱音',
         playedCount: '1.5万',
         danmu: '2003',

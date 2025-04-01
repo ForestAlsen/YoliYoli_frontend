@@ -7,10 +7,20 @@
       <slot :data1="item"></slot>
     </template>
   </div>
+  <div class="bottom-loading" v-if="isLoading"><img src="" alt="" />加载中...</div>
+  <div
+    class="reach-bottom-msg"
+    v-if="data.pageNumber >= data.totalPage && !isLoading && data.list.length > 0"
+  >
+    {{ loadEndMsg }}
+  </div>
+  <no-data class="no-data" v-if="!data.list && !isLoading"></no-data>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import NoData from './NoData.vue'
+import emitter from '@/eventBus'
 const props = defineProps({
   data: {
     type: Object,
@@ -31,6 +41,29 @@ const props = defineProps({
     type: Number,
     default: 5,
   },
+})
+const uplatedData = ref(props.data)
+const emit = defineEmits(['loadData'])
+/**
+ * 触发滚动加载事件
+ */
+onMounted(() => {
+  emitter.on('scroll', (scrollTop) => {
+    //判断滚动条是否到达底部
+    if (scrollTop + window.innerHeight < document.body.offsetHeight) {
+      return
+    }
+    //判断数据是否已经加载或者正在加载
+    if (props.isLoading || props.data.pageNumber >= props.data.totalPage) {
+      return
+    }
+    uplatedData.value = props.data
+    uplatedData.value.pageNumber++
+    emit('loadData')
+  })
+})
+onUnmounted(() => {
+  emitter.off('scroll')
 })
 </script>
 
@@ -55,5 +88,12 @@ const props = defineProps({
     width: 20px;
     margin-right: 10px;
   }
+}
+.no-data {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

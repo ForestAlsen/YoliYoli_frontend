@@ -19,18 +19,18 @@
           >
         </div>
       </div>
-      <div class="user-bar-item">
+      <router-link class="user-bar-item" to="/message" target="_blank">
         <div class="iconfont icon-xiaoxi1"></div>
         <div>消息</div>
-      </div>
-      <div class="user-bar-item">
+      </router-link>
+      <router-link class="user-bar-item" to="/collect" target="_blank">
         <div class="iconfont icon-shoucang"></div>
         <div>收藏</div>
-      </div>
-      <div class="user-bar-item">
+      </router-link>
+      <router-link class="user-bar-item" to="/history" target="_blank">
         <div class="iconfont icon-lishi"></div>
         <div>历史</div>
-      </div>
+      </router-link>
       <div class="btn-upload">
         <el-button type="primary" size=""
           ><span class="iconfont icon-share"></span><span>投稿</span></el-button
@@ -147,6 +147,7 @@ defineProps({
     padding: 5px 15px;
     // margin: 0 10px;
     text-align: center;
+    text-decoration: none;
     cursor: pointer;
     .iconfont {
       font-size: 20px;
@@ -184,6 +185,9 @@ defineProps({
       color: #fff;
     }
   }
+  .user-bar-item {
+    color: #fff;
+  }
 }
 .base-header-bar-dark {
   color: #4d4949;
@@ -191,6 +195,9 @@ defineProps({
     a {
       color: #4d4949;
     }
+  }
+  .user-bar-item {
+    color: #4d4949;
   }
 }
 </style>

@@ -7,14 +7,13 @@
     }"
   >
     <div class="scroll-header" style="z-index: 1001"><GlobalHeader /></div>
-    <div class="fix-header" v-if="showFixHeader" style="z-index: 1001">
+    <div class="fix-header" v-show="showFixHeader" style="z-index: 1001">
       <GlobalHeader theme="dark"></GlobalHeader>
     </div>
     <LoginPage></LoginPage>
     <div class="video-page">
       <div class="video-page"><VideoLayoutPage></VideoLayoutPage></div>
     </div>
-    <div style="height: 1000px"></div>
   </div>
 </template>
 
@@ -45,6 +44,7 @@ const scrollEvent = () => {
   } else {
     showFixHeader.value = false
   }
+  emitter.emit('scroll', scrollTop)
 }
 const resizeEvent = () => {
   emitter.emit('windowResize')

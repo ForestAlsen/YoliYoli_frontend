@@ -9,8 +9,8 @@
 
         <div class="shade">
           <div class="played-count" v-show="layoutType === 1">
-            <div class="iconfont icon-bofangcishu">{{ data.playedCount }}</div>
-            <div class="iconfont icon-danmushu">{{ data.danmu }}</div>
+            <div class="iconfont icon-bofangcishu">&nbsp;{{ data.playedCount }}</div>
+            <div class="iconfont icon-danmushu">&nbsp;{{ data.danmu }}</div>
           </div>
         </div>
       </div>
@@ -23,12 +23,12 @@
         v-html="data.videoTitle"
       ></router-link>
       <router-link class="user-name" to="`/user/${data.UID}`" target="_blank"
-        ><span class="iconfont icon-upzhu" :style="{ float: 'left' }">{{ data.userName }} . </span>
+        ><span class="iconfont icon-upzhu" :style="{ float: 'left' }">{{ data.userName }} </span>
         <span :style="{ float: 'right' }">{{ data.releaseTime }}</span>
       </router-link>
       <div class="played-count" v-show="layoutType === 2">
-        <div class="iconfont icon-bofangcishu">{{ data.playedCount }}</div>
-        <div class="iconfont icon-danmushu">{{ data.danmu }}</div>
+        <div class="iconfont icon-bofangcishu">&nbsp;{{ data.playedCount }}</div>
+        <div class="iconfont icon-danmushu">&nbsp;{{ data.danmu }}</div>
       </div>
     </div>
   </div>
@@ -96,8 +96,12 @@ const props = defineProps({
             margin-right: 2px;
           }
         }
+        .icon-bofangcishu {
+          font-size: 14px;
+        }
         .icon-danmushu {
           margin-left: 15px;
+          font-size: 14px;
         }
       }
     }
@@ -107,7 +111,7 @@ const props = defineProps({
     cursor: pointer;
     .video-title {
       height: 40px;
-      color: var(--text-color);
+      color: rgb(1, 11, 18);
       font-size: 14px;
       margin-top: 10px;
       display: -webkit-box; //兼容旧浏览器
