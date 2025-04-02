@@ -25,7 +25,7 @@
       <div class="carousel-bottom">
         <div class="carousel-video-info">
           <router-link
-            :to="`/video/${carouselList[carouselID].id}`"
+            :to="`/video/${carouselList[carouselID].videoID}`"
             target="_blank"
             class="video-name"
             >{{ carouselList[carouselID].videoTitle }}</router-link
@@ -50,8 +50,8 @@
       class="recommend-video-list"
       :style="{
         marginRight: getCurrentInstance().proxy.bodyPadding + 'px',
-        height: carouselWidth * 0.6 + 'px',
-        // width: carouselWidth * 1.5 + 'px',
+        // height: carouselWidth * 0.6 + 'px',
+        width: carouselWidth * 1.5 + 'px',
         minWidth: 550 + 'px',
       }"
     >
@@ -67,7 +67,7 @@
       position: 'relative',
       marginLeft: proxy.bodyPadding + 'px',
       marginRight: proxy.bodyPadding + 'px',
-      marginTop: '100px',
+      marginTop: '150px',
     }"
   >
     <VideoList></VideoList>
@@ -106,68 +106,68 @@ const recommendVideoList = ref([]) //右侧推荐视频列表
 const recommendList = ref([
   {
     videoCover: 'src/assets/image/anon.png',
-    UID: 1,
+    videoID: 1,
     videoTitle: 'videoTitle',
     userName: 'a',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 2,
+    videoID: 2,
     videoTitle: 'videoTitle2',
     userName: 'b',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 3,
+    videoID: 3,
     videoTitle: 'videoTitle3',
     userName: 'c',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 4,
+    videoID: 4,
     videoTitle: 'videoTitle4',
     userName: 'd',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 5,
+    videoID: 5,
     videoTitle: 'videoTitle5',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 6,
+    videoID: 6,
     videoTitle: 'videoTitle6',
   },
   {
     videoCover: 'src/assets/image/yamada.png',
-    id: 7,
+    videoID: 7,
     videoTitle: 'videoTitle7',
   },
   {
     videoCover: 'src/assets/image/ana.png',
-    id: 8,
+    videoID: 8,
     videoTitle: 'videoTitle8',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 9,
+    videoID: 9,
     videoTitle: 'videoTitle9',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    UID: 10,
+    videoID: 10,
     videoTitle: 'videoTitle10',
     releaseTime: '2025/3/8',
     userName: '千早爱音',
   },
   {
     videoCover: 'src/assets/image/animate.png',
-    id: 11,
+    videoID: 11,
     videoTitle: 'videoTitle11',
   },
   {
     videoCover: 'src/assets/image/anon.png',
-    id: 12,
+    videoID: 12,
     videoTitle: 'videoTitle12',
   },
 ])
@@ -215,12 +215,11 @@ onUnmounted(() => {
 </script>
 <style lang="scss" scoped>
 .recommend-block {
-  display: inline-flex;
+  display: flex;
 
   margin-top: 25px;
   max-height: 340px;
   .carousel-block {
-    grid-column: 1 / span 2;
     border-radius: 5px;
     overflow: hidden;
     position: relative;

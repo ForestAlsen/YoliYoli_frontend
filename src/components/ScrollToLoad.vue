@@ -50,7 +50,7 @@ const emit = defineEmits(['loadData'])
 onMounted(() => {
   emitter.on('scroll', (scrollTop) => {
     //判断滚动条是否到达底部
-    if (scrollTop + window.innerHeight < document.body.offsetHeight) {
+    if (scrollTop + document.documentElement.clientHeight < document.body.offsetHeight) {
       return
     }
     //判断数据是否已经加载或者正在加载

@@ -3,7 +3,7 @@
     :class="['video-item', layoutType == 2 ? 'video-item2' : '']"
     :style="{ 'margin-top': marginTop + 'px' }"
   >
-    <router-link to="`/video/${data.videoID}`" target="_blank">
+    <router-link :to="`/video/${data.videoID}`" target="_blank">
       <div class="cover">
         <CoverComponent :src="data.videoCover" preview="false"></CoverComponent>
 
@@ -19,7 +19,7 @@
       <router-link
         class="video-title"
         target="_blank"
-        to="`/video/${data.videoID}`"
+        :to="`/video/${data.videoID}`"
         v-html="data.videoTitle"
       ></router-link>
       <router-link class="user-name" to="`/user/${data.UID}`" target="_blank"

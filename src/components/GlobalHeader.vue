@@ -15,24 +15,24 @@
         <div class="avatar">
           <!-- <el-button type="primary" :icon="LoginIcon" @click="openLoginWindow" /> -->
           <el-button type="primary" @click="openLoginWindow" color="#fb7299"
-            ><span style="color: #fff">登陆</span></el-button
+            ><span style="color: #fff">登录</span></el-button
           >
         </div>
       </div>
-      <router-link class="user-bar-item" to="/message" target="_blank">
+      <router-link class="user-bar-item" to="/message" :target="jumpMethod()">
         <div class="iconfont icon-xiaoxi1"></div>
         <div>消息</div>
       </router-link>
-      <router-link class="user-bar-item" to="/collect" target="_blank">
+      <router-link class="user-bar-item" to="/collect" :target="jumpMethod()">
         <div class="iconfont icon-shoucang"></div>
         <div>收藏</div>
       </router-link>
-      <router-link class="user-bar-item" to="/history" target="_blank">
+      <router-link class="user-bar-item" to="/history" :target="jumpMethod()">
         <div class="iconfont icon-lishi"></div>
         <div>历史</div>
       </router-link>
       <div class="btn-upload">
-        <el-button type="primary" size=""
+        <el-button type="primary" size="" @click="upLoad"
           ><span class="iconfont icon-share"></span><span>投稿</span></el-button
         >
       </div>
@@ -45,8 +45,12 @@
 import emitter from '@/eventBus'
 import { ref, onMounted, h } from 'vue'
 import { getCurrentInstance } from 'vue'
+import { useLoginUserStore } from '@/stores/useLoginUserStore'
+import { ElMessage } from 'element-plus'
+import { useRoute } from 'vue-router'
 const { proxy } = getCurrentInstance()
 const search_input = ref('')
+const LoginUserStore = useLoginUserStore()
 /**
  * @description:发送打开登陆窗口事件
  */
@@ -57,6 +61,29 @@ const openLoginWindow = () => {
 }
 const onSearch = () => {
   console.log(search_input.value)
+}
+/**
+ * 投稿视频前判断是否登陆
+ */
+const upLoad = () => {
+  if (LoginUserStore.LoginUser.username === '未登录') {
+    ElMessage({
+      message: '请先登录',
+      type: 'warning',
+    })
+    return
+  }
+  useRoute().push('/upload')
+}
+/**
+ * 打开新页面的方式
+ */
+const jumpMethod = () => {
+  if (LoginUserStore.LoginUser.username === '未登录') {
+    return ''
+  } else {
+    return '_blank'
+  }
 }
 //const LoginIcon = h('i', { class: 'iconfont icon-bilibili-' })
 defineProps({

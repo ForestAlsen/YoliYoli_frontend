@@ -38,7 +38,7 @@
               <el-input v-model="password" placeholder="请输入密码" />
             </div>
             <div class="input">
-              <el-input v-model="password" placeholder="请确认密码" />
+              <el-input v-model="confirmPassword" placeholder="请确认密码" />
             </div>
             <div class="login-button">
               <el-button type="primary" @click="doRegister">注册</el-button>
@@ -62,7 +62,9 @@ emitter.on('openDialog', (callback) => {
 emitter.on('closeDialog', (callback) => {
   dialogConfig.value.show = callback
 })
-
+const username = ref('')
+const password = ref('')
+const confirmPassword = ref('')
 const qrCodeValue = ref('https://example.com')
 const qrCodeSize = ref(200)
 const pageStatus = ref(true)
@@ -84,9 +86,15 @@ const doRegister = () => {
 }
 const changeLogin = () => {
   pageStatus.value = true
+  username.value = ''
+  password.value = ''
+  confirmPassword.value = ''
 }
 const changeRegister = () => {
   pageStatus.value = false
+  username.value = ''
+  password.value = ''
+  confirmPassword.value = ''
 }
 </script>
 
@@ -119,6 +127,17 @@ const changeRegister = () => {
     align-items: center;
     justify-content: center;
     margin-right: 25%;
+  }
+  .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .login-button {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
   }
 }
 </style>

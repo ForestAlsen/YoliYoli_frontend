@@ -2,7 +2,7 @@ import { getCurrentUser } from '@/api/user'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const LoginUserStore = defineStore('LoginUserStore', () => {
+export const useLoginUserStore = defineStore('LoginUserStore', () => {
   const LoginUser = ref({
     username: '未登录',
   })
