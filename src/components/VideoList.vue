@@ -93,7 +93,7 @@ const response = ref({
       },
       {
         videoCover: 'src/assets/image/yamada.png',
-        videoIDd: 7,
+        videoID: 7,
         videoTitle: 'videoTitle7',
       },
       {

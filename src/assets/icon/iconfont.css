@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4830818 */
-  src: url('iconfont.woff2?t=1742300600498') format('woff2'),
-       url('iconfont.woff?t=1742300600498') format('woff'),
-       url('iconfont.ttf?t=1742300600498') format('truetype'),
-       url('iconfont.svg?t=1742300600498#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1744082318589') format('woff2'),
+       url('iconfont.woff?t=1744082318589') format('woff'),
+       url('iconfont.ttf?t=1744082318589') format('truetype'),
+       url('iconfont.svg?t=1744082318589#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sort:before {
+  content: "\e65e";
 }
 
 .icon-danmushu:before {

@@ -53,6 +53,7 @@
         // height: carouselWidth * 0.6 + 'px',
         width: carouselWidth * 1.5 + 'px',
         minWidth: 550 + 'px',
+        maxHeight: 310 + 'px',
       }"
     >
       <div v-for="item in recommendVideoList" :key="item">

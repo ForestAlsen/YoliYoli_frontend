@@ -7,10 +7,11 @@
       width="1000px"
     >
       <div class="login-body">
-        <span class="qr-code-group">
+        <!-- <span class="qr-code-group">
           <div class="qr-code-title">二维码登陆</div>
           <vue-qrcode :value="qrCodeValue" :width="qrCodeSize"></vue-qrcode>
-        </span>
+        </span> -->
+        <div class="bg-img"><img src="../assets/image/mizuki1.jpg" alt="" /></div>
         <span class="input-group">
           <div class="login-title">
             <el-button text @click="changeLogin">登陆</el-button> |<el-button
@@ -21,27 +22,44 @@
           </div>
           <div class="login" v-if="pageStatus">
             <div class="input">
-              <el-input v-model="username" placeholder="请输入用户名" />
+              <el-input v-model="username" placeholder="请输入用户名" clearable />
             </div>
             <div class="input">
-              <el-input v-model="password" placeholder="请输入密码" />
+              <el-input v-model="password" show-password placeholder="请输入密码" clearable />
             </div>
             <div class="login-button">
-              <el-button type="primary" @click="doLogin">登陆</el-button>
+              <el-button
+                type="primary"
+                color="#d3b1b1"
+                style="color: #fff; font-size: 15px; font-weight: normal"
+                @click="doLogin"
+                >登陆</el-button
+              >
             </div>
           </div>
           <div class="register" v-else>
             <div class="input">
-              <el-input v-model="username" placeholder="请输入用户名" />
+              <el-input v-model="username" placeholder="请输入用户名" clearable />
             </div>
             <div class="input">
-              <el-input v-model="password" placeholder="请输入密码" />
+              <el-input v-model="password" show-password placeholder="请输入密码" clearable />
             </div>
             <div class="input">
-              <el-input v-model="confirmPassword" placeholder="请确认密码" />
+              <el-input
+                v-model="confirmPassword"
+                show-password
+                placeholder="请确认密码"
+                clearable
+              />
             </div>
             <div class="login-button">
-              <el-button type="primary" @click="doRegister">注册</el-button>
+              <el-button
+                type="primary"
+                color="#fb7299"
+                style="color: #fff; font-size: 15px; font-weight: normal"
+                @click="doRegister"
+                >注册</el-button
+              >
             </div>
           </div>
         </span>
@@ -106,6 +124,16 @@ const changeRegister = () => {
   align-items: center;
   justify-content: center;
   align-content: space-around;
+  .bg-img {
+    overflow: hidden;
+    width: 450px;
+    height: 500px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: scale-down;
+    }
+  }
   .input-group {
     position: relative;
     display: flex;
@@ -138,6 +166,7 @@ const changeRegister = () => {
     justify-content: center;
 
     align-items: center;
+    color: #6c6a6a;
   }
 }
 </style>

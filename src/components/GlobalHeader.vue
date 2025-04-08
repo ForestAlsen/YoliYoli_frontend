@@ -2,6 +2,11 @@
   <div :class="['base-header-bar', 'base-header-bar-' + theme]">
     <div class="menu">
       <router-link class="iconfont icon-bilibili" to="/">首页</router-link>
+      <div class="btn-classify">
+        <el-button class="iconfont icon-sort" type="text" size="" @click="onClassify"
+          >分类</el-button
+        >
+      </div>
     </div>
     <div class="search">
       <div class="search-pannel">
@@ -12,11 +17,12 @@
     </div>
     <div class="user-bar">
       <div class="user-bar-item">
-        <div class="avatar">
-          <!-- <el-button type="primary" :icon="LoginIcon" @click="openLoginWindow" /> -->
-          <el-button type="primary" @click="openLoginWindow" color="#fb7299"
+        <div>
+          <el-button v-if="!isLogin" type="primary" @click="openLoginWindow" color="#fb7299"
             ><span style="color: #fff">登录</span></el-button
-          >
+          ><router-link v-if="isLogin" to="/user" target="_blank">
+            <avatar-component class="avatar" avatar="src/assets/image/goto.png"></avatar-component
+          ></router-link>
         </div>
       </div>
       <router-link class="user-bar-item" to="/message" :target="jumpMethod()">
@@ -43,14 +49,21 @@
 
 <script setup>
 import emitter from '@/eventBus'
-import { ref, onMounted, h } from 'vue'
+import { ref, onMounted, h, computed } from 'vue'
 import { getCurrentInstance } from 'vue'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
 import { ElMessage } from 'element-plus'
-import { useRoute } from 'vue-router'
+import AvatarComponent from './AvatarComponent.vue'
+
 const { proxy } = getCurrentInstance()
+
 const search_input = ref('')
 const LoginUserStore = useLoginUserStore()
+
+const isLogin = computed(() => {
+  return LoginUserStore.LoginUser.username !== '未登录' ? true : false
+})
+
 /**
  * @description:发送打开登陆窗口事件
  */
@@ -58,6 +71,11 @@ const openLoginWindow = () => {
   emitter.emit('openDialog', () => {
     return true
   })
+}
+const onClassify = () => {
+  let mouse = document.getElementsByClassName('btn-classify')
+  mouse[0].onmouseenter = function () {}
+  mouse[0].onmouseleave = function () {}
 }
 const onSearch = () => {
   console.log(search_input.value)
@@ -67,13 +85,16 @@ const onSearch = () => {
  */
 const upLoad = () => {
   if (LoginUserStore.LoginUser.username === '未登录') {
-    ElMessage({
-      message: '请先登录',
-      type: 'warning',
+    // ElMessage({
+    //   message: '请先登录',
+    //   type: 'warning',
+    // })
+    emitter.emit('openDialog', () => {
+      return true
     })
     return
   }
-  useRoute().push('/upload')
+  window.open('/upload', '_blank')
 }
 /**
  * 打开新页面的方式
@@ -153,6 +174,21 @@ defineProps({
         transition: background-color 0.3s ease;
       }
     }
+    .icon-guanbi {
+      border-radius: 50%;
+      font-size: 20px;
+
+      width: 15px;
+      color: #8c8484;
+      height: 20px;
+      display: flex;
+
+      cursor: pointer;
+      &:hover {
+        background-color: #d3cfcf;
+        transition: background-color 0.3s ease;
+      }
+    }
   }
 }
 .menu {
@@ -164,6 +200,15 @@ defineProps({
       margin-right: 5px;
     }
     text-decoration: none;
+  }
+  .btn-classify {
+    margin-left: 50px;
+
+    button {
+      font-size: 16px;
+      text-align: center;
+      font-weight: normal;
+    }
   }
 }
 .user-bar {
@@ -180,6 +225,19 @@ defineProps({
       font-size: 20px;
       text-align: center;
       font-weight: normal;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+      }
     }
   }
 }
@@ -211,6 +269,9 @@ defineProps({
     a {
       color: #fff;
     }
+    .el-button {
+      color: #fff;
+    }
   }
   .user-bar-item {
     color: #fff;
@@ -220,6 +281,9 @@ defineProps({
   color: #4d4949;
   .menu {
     a {
+      color: #4d4949;
+    }
+    .el-button {
       color: #4d4949;
     }
   }

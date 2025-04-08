@@ -6,28 +6,32 @@
       'min-width': MinWidth + 'px',
     }"
   >
-    <div class="scroll-header" style="z-index: 1001"><GlobalHeader /></div>
-    <div class="fix-header" v-show="showFixHeader" style="z-index: 1001">
+    <div class="scroll-header" v-show="useShowComponent.showScrollHeader" style="z-index: 1001">
+      <GlobalHeader />
+    </div>
+    <div
+      class="fix-header"
+      v-show="showFixHeader || useShowComponent.showFixedHeader"
+      style="z-index: 1001"
+    >
       <GlobalHeader theme="dark"></GlobalHeader>
     </div>
     <LoginPage></LoginPage>
-    <div class="video-page">
-      <div class="video-page"><VideoLayoutPage></VideoLayoutPage></div>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import VideoLayoutPage from '@/views/MainVideoLayout.vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import LoginPage from '@/views/LoginPage.vue'
-
+import { useShowComponentStore } from '@/stores/useShowComponentStore'
 import { ref, onMounted, onUnmounted } from 'vue'
 import emitter from '@/eventBus'
 // import { getCurrentInstance } from 'vue'
 // const { proxy } = getCurrentInstance()
 const MaxWidth = ref(2000)
 const MinWidth = ref(1250)
+const useShowComponent = useShowComponentStore()
 /**
  * @description: 监听滚动事件
  */
@@ -50,6 +54,7 @@ const resizeEvent = () => {
   emitter.emit('windowResize')
 }
 onMounted(() => {
+  useShowComponent.setShowFixedHeader(false)
   window.addEventListener('scroll', scrollEvent)
   window.addEventListener('windowResize', resizeEvent)
 })
@@ -78,9 +83,10 @@ body {
   height: 180px;
   width: 100%;
   background-position: center;
-  background-image: url(@/assets/image/anon.png);
+  background-image: url(@/assets/image/animate.png);
   background-repeat: no-repeat;
   background-color: rgb(176, 165, 165);
+  background-size: cover;
 }
 .fix-header {
   position: fixed;

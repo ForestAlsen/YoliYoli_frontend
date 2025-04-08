@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
+import emitter from '@/eventBus'
 import { ElMessage } from 'element-plus'
 
 const router = createRouter({
@@ -8,15 +9,16 @@ const router = createRouter({
     {
       path: '/',
       name: 'main',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/BasicLayout.vue'),
-    },
-    {
-      path: '/video',
-      name: 'video',
-      component: () => import('../views/VideoDetailPage.vue'),
+
+      component: () => import('../layout/MainLayout.vue'),
+      children: [
+        { path: '/', name: 'home', component: () => import('../views/MainVideoPage.vue') },
+        {
+          path: '/video/:videoId',
+          name: 'video',
+          component: () => import('../views/VideoDetailPage.vue'),
+        },
+      ],
     },
   ],
 })
@@ -29,8 +31,11 @@ router.beforeEach((to, from, next) => {
   ) {
     next()
   } else {
-    ElMessage.warning('请先登录')
-    next({ path: '/' })
+    // ElMessage.warning('请先登录')
+    // next({ path: '/' })
+    emitter.emit('openDialog', () => {
+      return true
+    })
   }
 })
 

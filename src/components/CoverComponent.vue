@@ -19,7 +19,8 @@
         <div class="loading"></div>
       </template>
       <template #error>
-        <i class="iconfont icon-image-error"></i>
+        <!-- <i class="iconfont icon-image-error"></i> -->
+        <img src="../assets/image/goto.png" alt="图片加载失败" />
       </template>
     </el-image>
     <div v-else class="no-img">选择一张图片</div>
@@ -90,7 +91,7 @@ const fileSource = computed(() => {
     }
     return
   } else if (typeof props.src === 'string') {
-    return `${props.src}`
+    return props.src
   }
   return {}
 })

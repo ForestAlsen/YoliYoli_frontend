@@ -2,10 +2,11 @@
   <div>
     <router-link v-if="UID" to="`/user/${UID}`" target="_blank">
       <CoverComponentomponent
-        :width="width"
-        :lazy="lazy"
+        :width="props.width"
+        :preview="props.preview"
+        :lazy="props.lazy"
         :borderRadius="borderRadius + '%'"
-        :src="avatar"
+        :src="props.avatar"
         :defaultImg="defaultAvatar"
         :scale="scale"
       ></CoverComponentomponent
@@ -18,7 +19,11 @@
 import { ref, defineProps } from 'vue'
 const defaultAvatar = ref('')
 const props = defineProps({
-  with: {
+  preview: {
+    type: Boolean,
+    default: false,
+  },
+  width: {
     type: Number,
     default: 50,
   },

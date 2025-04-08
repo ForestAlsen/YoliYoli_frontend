@@ -64,6 +64,7 @@ const props = defineProps({
     type: String,
     default: '30%',
   },
+
   bodyClass: {
     type: String,
     default: '',

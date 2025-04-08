@@ -1,9 +1,22 @@
 <template>
-  <div></div>
+  <div class="video-detail-page"></div>
 </template>
 
-<script>
-export default {}
+<script setup>
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { useShowComponentStore } from '@/stores/useShowComponentStore'
+onMounted(() => {
+  nextTick(() => {
+    useShowComponentStore().setShowScrollHeader(false)
+    useShowComponentStore().setShowFixedHeader(true)
+  })
+})
+onUnmounted(() => {
+  nextTick(() => {
+    useShowComponentStore().setShowScrollHeader(true)
+    useShowComponentStore().setShowFixedHeader(false)
+  })
+})
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
